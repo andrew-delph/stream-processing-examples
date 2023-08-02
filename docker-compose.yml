@@ -18,16 +18,13 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     ports:
       - "9092:9092"
-
-  # consumer:
-  #   build: consumer
-  #   image: kafka-consumer/consumer:latest
-  #   environment:
-  #     - "SPRING_PROFILES_ACTIVE=test"
-  #   ports:
-  #     - "8080:8080"
-  #   depends_on:
-  #     - kafka
+  consumer:
+    build: consumer
+    image: kafka-consumer/consumer:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - kafka
   producer:
     build: producer
     image: kafka-producer/producer:latest
