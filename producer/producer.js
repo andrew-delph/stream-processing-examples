@@ -22,7 +22,7 @@ let count = 0;
 const produceMessage = async () => {
   await producer.connect();
   setInterval(async () => {
-    const message = { value: count + "" };
+    const message = { value: generateRandomString(5) };
     count = count + 1;
     await producer.send({ topic, messages: [message] });
     console.log("Message sent", message);
