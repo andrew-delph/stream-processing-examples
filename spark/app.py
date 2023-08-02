@@ -20,8 +20,20 @@ MONGO_COLLECTION = "word_count"
 #      .option("database", MONGO_DATABASE)
 #      .option("collection", MONGO_COLLECTION)
 #      .save())
+import socket
+
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 
 def save_to_mongo(batchDF, epoch_id):
+
+    host_name = socket.gethostname()
+    logger.info(f"Processing on host: {host_name}")
+
     # Create a connection to MongoDB
     client = MongoClient(MONGO_URI)
     db = client[MONGO_DATABASE]
@@ -30,6 +42,7 @@ def save_to_mongo(batchDF, epoch_id):
     # Iterate through the DataFrame rows and update MongoDB
     for row in batchDF.collect():
         word = row['word']
+        # word = str(host_name)
         count = row['count']
 
         # Increment the count for the word, or insert a new document if the word doesn't exist
@@ -41,6 +54,7 @@ def save_to_mongo(batchDF, epoch_id):
 if __name__ == "__main__":
     spark = SparkSession.builder \
         .appName("KafkaStreamConsumer") \
+        .master("spark://spark-master:7077") \
         .getOrCreate()
 
     kafkaStreamDF = spark \
