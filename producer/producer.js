@@ -25,7 +25,7 @@ const produceMessage = async () => {
     const message = { value: generateRandomString(1) };
     await producer.send({ topic, messages: [message] });
     console.log("Message sent", message);
-  }, 1000);
+  }, 10);
 };
 
 produceMessage().catch(console.error);
