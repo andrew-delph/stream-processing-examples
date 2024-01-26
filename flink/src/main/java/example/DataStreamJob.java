@@ -43,10 +43,11 @@ public class DataStreamJob {
 		// Sets up the execution environment, which is the main entry point
 		// to building Flink applications.
 		final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-
+	
+		String brokers = "kafka:9092,localhost:29092";
 		
 	KafkaSource<String> source = KafkaSource.<String>builder()
-		.setBootstrapServers("kafka:9092")
+		.setBootstrapServers(brokers)
 		.setTopics("my-topic")
 		.setStartingOffsets(OffsetsInitializer.earliest())
 		.setValueOnlyDeserializer(new SimpleStringSchema())
