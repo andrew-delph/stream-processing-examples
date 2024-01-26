@@ -94,7 +94,7 @@ services:
     environment:
       - |
         FLINK_PROPERTIES=
-        jobmanager.rpc.address: jobmanager        
+        jobmanager.rpc.address: jobmanager    
 
   taskmanager:
     image: flink:latest

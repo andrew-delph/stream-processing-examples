@@ -21,13 +21,7 @@
 </repositories>
 
     <dependencies>
-    <!-- Add this dependency for Flink Java API -->
-    <dependency>
-        <groupId>org.apache.flink</groupId>
-        <artifactId>flink-java</artifactId>
-        <version>1.19-SNAPSHOT</version> <!-- Use the appropriate version -->
-    </dependency>
-<!-- https://mvnrepository.com/artifact/org.apache.flink/flink-streaming-java -->
+    <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-streaming-java -->
 <dependency>
     <groupId>org.apache.flink</groupId>
     <artifactId>flink-streaming-java</artifactId>
@@ -35,16 +29,54 @@
     <scope>provided</scope>
 </dependency>
 
+<!-- https://mvnrepository.com/artifact/org.apache.flink/flink-core -->
+<dependency>
+    <groupId>org.apache.flink</groupId>
+    <artifactId>flink-core</artifactId>
+    <version>1.18.1</version>
+    <scope>provided</scope>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.apache.flink/flink-table-common -->
+<dependency>
+    <groupId>org.apache.flink</groupId>
+    <artifactId>flink-table-common</artifactId>
+    <version>1.18.1</version>
+    <scope>provided</scope>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.apache.flink/flink-java -->
+<dependency>
+    <groupId>org.apache.flink</groupId>
+    <artifactId>flink-java</artifactId>
+    <version>1.18.1</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.apache.flink/flink-connector-kafka -->
 <dependency>
     <groupId>org.apache.flink</groupId>
     <artifactId>flink-connector-kafka</artifactId>
-    <version>3.0.2-1.18</version>
+    <version>3.0.1-1.18</version>
 </dependency>
 
+
+
+
+
 <dependency>
-    <groupId>ch.qos.logback</groupId>
-    <artifactId>logback-classic</artifactId>
-    <version>1.2.3</version> <!-- replace with the version you want to use -->
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-api</artifactId>
+    <version>2.20.0</version>
+</dependency>
+<dependency>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-core</artifactId>
+    <version>2.20.0</version>
+</dependency>
+<dependency>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-slf4j-impl</artifactId>
+    <version>2.20.0</version>
 </dependency>
 
     <!-- Add other Flink dependencies as needed -->

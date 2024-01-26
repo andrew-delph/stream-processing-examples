@@ -1,4 +1,5 @@
 package com.example.flink;
+
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
@@ -17,39 +18,24 @@ public class WordCount {
 
         String host = "localhost"; // the address of the JobManager
         int port = 8081; // the port of the JobManager
-        final StreamExecutionEnvironment env = StreamExecutionEnvironment.createRemoteEnvironment(host,port);
+        final StreamExecutionEnvironment env = StreamExecutionEnvironment.createRemoteEnvironment(host, port);
+       
 
-        
-// Define a source, for example, from a collection
-DataStream<String> text = env.fromElements("Hello", "Flink", "World");
+        KafkaSource<String> source = KafkaSource.<String>builder()
+        .setBootstrapServers("localhost:29092")
+        .setTopics("input-topic")
+        .setGroupId("flink-group")
+        .setStartingOffsets(OffsetsInitializer.earliest())
+        .setValueOnlyDeserializer(new SimpleStringSchema())
+        .build();
 
-// Define a transformation, such as a map function
-DataStream<String> transformed = text.map(new MapFunction<String, String>() {
-    @Override
-    public String map(String value) throws Exception {
-        return value.toUpperCase();
-    }
-});
+        DataStream<String> kafkaStream =env.fromSource(source,
+        WatermarkStrategy.noWatermarks(), "Kafka Source");
 
-// Define a sink, such as printing the result to the console
-transformed.print();
+        kafkaStream.print();
 
-// Execute the job
-env.execute("My Flink Job");
-
-    //     KafkaSource<String> source = KafkaSource.<String>builder()
-    //     .setBootstrapServers("kafka:9092")
-    // .setTopics("input-topic")
-    // .setGroupId("flink-group")
-    // .setStartingOffsets(OffsetsInitializer.earliest())
-    // .setValueOnlyDeserializer(new SimpleStringSchema())
-    // .build();
-
-    // DataStream<String> kafkaStream =env.fromSource(source, WatermarkStrategy.noWatermarks(), "Kafka Source");
-
-    // kafkaStream.print();
-
-
+         // Execute the job
+         env.execute("My Flink Job");
 
     }
 }
